@@ -1,2 +1,1 @@
-# drf
-study DjangoRestFramework
+## DJANGO REST FRAMEWORK 공부 관련 REPO
