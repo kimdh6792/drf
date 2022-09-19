@@ -23,7 +23,7 @@ from drf_yasg       import openapi
 schema_view = get_schema_view(
     openapi.Info(
         title="DjangoRestFramework",
-        default_version='버전(예: 1.1.1)',
+        default_version='버전(1.1.1)',
         description="DjangoRestFramework Test",
         terms_of_service="https://www.google.com/policies/terms/",
         contact=openapi.Contact(email="이메일"), # 부가정보

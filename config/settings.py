@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import private
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-=^230k%(p9(%m!irqtijjw2)xiybx(j5*ahshi78+m#exby!2)'
+SECRET_KEY = private.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -77,16 +78,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default' : {
-        'ENGINE'   : 'django.db.backends.mysql',
-        'NAME'     : 'market_db',
-        'USER'     : 'root',
-        'PASSWORD' : '0521',
-        'HOST'     : 'localhost',
-        'PORT'     : '3306',
-    }
-}
+DATABASES = private.LOCAL_DB
 
 
 # Password validation
