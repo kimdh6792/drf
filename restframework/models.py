@@ -16,9 +16,6 @@ class Buy(models.Model):
     price = models.IntegerField()
     amount = models.SmallIntegerField()
 
-    class Meta:
-        db_table = 'buy'
-
 
 class Member(models.Model):
     mem_id = models.CharField(primary_key=True, max_length=8)
@@ -30,5 +27,3 @@ class Member(models.Model):
     height = models.SmallIntegerField(blank=True, null=True)
     debut_date = models.DateField(blank=True, null=True)
 
-    class Meta:
-        db_table = 'member'

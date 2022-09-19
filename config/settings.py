@@ -26,7 +26,7 @@ SECRET_KEY = private.SECRET_KEY
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', '172.24.0.4']
 
 
 # Application definition
@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'restframework',
     'rest_framework',
     'drf_yasg',
-    'django_crontab'
+    'django_crontab',
+    'django_celery_results'
+
 ]
 
 MIDDLEWARE = [
@@ -118,6 +120,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -136,3 +140,6 @@ CRONJOBS = {
     ('5 19 * * *', 'cron.cron.test_print', '>> ' + os.path.join(BASE_DIR, 'config/log/cron.log')),
     ('5 19 * * *', 'cron.cron.test_print2', '>> ' + os.path.join(BASE_DIR, 'config/log/cron2.log')),
 }
+
+# celery
+CELERY_RESULT_BACKEND = "django-db"

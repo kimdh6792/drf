@@ -1,0 +1,1 @@
+CREATE DATABASE drf_test IF NOT EXISTS drf_test;

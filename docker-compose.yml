@@ -1,0 +1,72 @@
+version: "3"
+services:
+  django:
+    container_name: django
+    image: django
+    build:
+      dockerfile: Dockerfile
+      context: .
+    volumes:
+      - .:/drf/
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mysql
+
+  mysql:
+    container_name: mysql
+    platform: linux/amd64
+    restart: unless-stopped
+    build:
+      dockerfile: Dockerfile
+      context: ./mysql
+    volumes:
+       - ./mysql/sqls/:/docker-entrypoint-initdb.d/
+    environment:
+      MYSQL_ROOT_PASSWORD: "qwer1234!"
+      MYSQL_DATABASE: "drf_test"
+    ports:
+      - "3306:3306"
+
+  nginx:
+    container_name: nginx
+    image: nginx
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - django
+
+  rabbitmq:
+    image: 'rabbitmq:3-management-alpine'
+    container_name: rabbitmq-stream
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "RabbitMQ-My-Cookies"
+      RABBITMQ_DEFAULT_USER: "guest"
+      RABBITMQ_DEFAULT_PASS: "guest"
+
+  celery:
+    image: django
+    command: celery -A config worker -l info
+    #    command: bash -c "celery multi start quick slow -A backend --time-limit=3600 -P prefork"
+    stdin_open: true
+    depends_on:
+      - django
+
+  migrate:
+    image: django
+    command: bash -c "python manage.py makemigrations && python manage.py migrate"
+    restart: on-failure
+    stdin_open: true
+    depends_on:
+      - nginx
+      - celery
+      - mysql
+      - django
+
