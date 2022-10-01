@@ -1,8 +1,7 @@
 from restframework.models import *
 from rest_framework import serializers
 
-class BuySerializer(serializers.Serializer):
-    test = serializers.CharField(help_text='test 쿼리파라미터', default='no')
+class BuySerializer(serializers.ModelSerializer):
 
     addr = serializers.SerializerMethodField()
     mem_name = serializers.SerializerMethodField()

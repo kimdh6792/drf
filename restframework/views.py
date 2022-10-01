@@ -13,7 +13,10 @@ class BuyListAPI(APIView):
 
         test = params.get('test')
         print(test)
-        qs = Buy.objects.filter(mem__in=Member.objects.filter(mem_number=6).values('mem_id'))
+        qs = Buy.objects.filter(mem='BLK').select_related('mem')
+        # qs = Buy.objects.filter(mem='BLK')
+        print(qs[0].mem.mem_name)
+        print(str(qs.query))
         serializer = BuySerializer(qs, many=True)
         return Response(serializer.data)
 

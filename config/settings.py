@@ -9,9 +9,9 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+import os
 from pathlib import Path
-import private
+from config import private
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'restframework',
     'rest_framework',
     'drf_yasg',
-
+    'django_crontab'
 ]
 
 MIDDLEWARE = [
@@ -105,7 +105,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
@@ -132,3 +132,7 @@ CSRF_TRUSTED_ORIGINS = (
     '127.0.0.1:8000',
 )
 
+CRONJOBS = {
+    ('5 19 * * *', 'cron.cron.test_print', '>> ' + os.path.join(BASE_DIR, 'config/log/cron.log')),
+    ('5 19 * * *', 'cron.cron.test_print2', '>> ' + os.path.join(BASE_DIR, 'config/log/cron2.log')),
+}
