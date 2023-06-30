@@ -6,16 +6,19 @@
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
-from django.utils import timezone
 
 
 class Buy(models.Model):
-    num = models.BigAutoField(primary_key=True)
+    num = models.AutoField(primary_key=True)
     mem = models.ForeignKey('Member', models.DO_NOTHING)
-    prod = models.OneToOneField('Product', models.DO_NOTHING, default='')
+    prod_name = models.CharField(max_length=6, null=True)
     group_name = models.CharField(max_length=4, blank=True, null=True)
     price = models.IntegerField()
     amount = models.SmallIntegerField()
+
+    class Meta:
+        db_table = 'buy'
+
 
 class Member(models.Model):
     mem_id = models.CharField(primary_key=True, max_length=8)
@@ -27,8 +30,5 @@ class Member(models.Model):
     height = models.SmallIntegerField(blank=True, null=True)
     debut_date = models.DateField(blank=True, null=True)
 
-
-class Product(models.Model):
-    prod_id = models.CharField(primary_key=True, max_length=8)
-    prod_name = models.CharField(max_length=10)
-    created_at = models.DateTimeField(default=timezone.now)
+    class Meta:
+        db_table = 'member'
