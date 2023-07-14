@@ -16,6 +16,7 @@ node_modules/
 .vscode
 coverage
 .python-version
+/static/
 
 # Distribution / packaging
 .Python

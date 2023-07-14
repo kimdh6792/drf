@@ -6,11 +6,29 @@
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
+from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.base_user import AbstractBaseUser
+
+
+class User(AbstractBaseUser):
+    # 아이디
+    user_id = models.CharField(max_length=10, unique=True)
+    is_admin = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = "user"
+
+    USERNAME_FIELD = "user_id"
+    REQUIRED_FIELDS = ["user_id"]
 
 
 class Buy(models.Model):
     num = models.AutoField(primary_key=True)
-    mem = models.ForeignKey('Member', models.DO_NOTHING)
+    mem = models.ForeignKey("Member", models.DO_NOTHING)
     prod_name = models.CharField(max_length=6, null=True)
     group_name = models.CharField(max_length=4, blank=True, null=True)
     price = models.IntegerField()
@@ -26,4 +44,3 @@ class Member(models.Model):
     phone2 = models.CharField(max_length=8, blank=True, null=True)
     height = models.SmallIntegerField(blank=True, null=True)
     debut_date = models.DateField(blank=True, null=True)
-

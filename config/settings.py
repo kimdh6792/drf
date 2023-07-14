@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = private.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ["127.0.0.1", "172.24.0.4"]
+ALLOWED_HOSTS = ["127.0.0.1", "172.24.0.4", "localhost"]
 
 
 # Application definition
@@ -120,7 +120,10 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
-
+STATICFILES_FINDERS = [
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -131,7 +134,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 #       '127.0.0.1:8000'
 # )
 
-CSRF_TRUSTED_ORIGINS = ("127.0.0.1:8000",)
+CSRF_TRUSTED_ORIGINS = ("http://127.0.0.1:8000",)
 
 CRONJOBS = {
     (
