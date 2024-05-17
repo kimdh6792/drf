@@ -20,7 +20,4 @@ version-resolver:
       - 'patch'
   default: patch
 template: |
-  ## Uncategorized
   $CHANGES
-  
-  ### Bump setup.py version must be included here!
