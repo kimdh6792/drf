@@ -1,10 +1,4 @@
 name: Create Release Note
-on:
-  workflow_call:
-    inputs:
-      environment:
-        required: true
-        type: string
 jobs:
   create_release_note:
     runs-on: ubuntu-latest
