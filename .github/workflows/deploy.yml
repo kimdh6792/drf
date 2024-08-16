@@ -18,8 +18,8 @@ jobs:
           VERSION="v$(echo '${{ github.head_ref }}' | tr -d 'release-')"
       - name: 버전 정보 변수에 저장
         run: |
-          echo "$VERSION 버전 릴리즈 생성"
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "${VERSION} 버전 릴리즈 생성"
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
         id: output_version
       - name: Create Release Note
         uses: ncipollo/release-action@v1
