@@ -15,13 +15,13 @@ jobs:
       - name: extract version from branch name
         run: |
           # 브랜치 이름 추출
-          VERSION=$(echo '${{ github.ref_name }}' | tr -d 'release-')
+          VERSION=$(echo '${{ github.event.pull_request.ref_name }}' | tr -d 'release-')
           echo "VERSION: $VERSION" 
       - name: set output
         id: set_output
         run: |
           echo "version=$VERSION" >> $GITHUB_ENV
-          echo $VERSION
+          echo "$VERSION"
       - name: Create Release Note
         uses: ncipollo/release-action@v1
         env:
