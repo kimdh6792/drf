@@ -1,8 +1,14 @@
-name: Release Drafter
+name: Release Create
 on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
+    types:
+      - closed
+      
 jobs:
   create_release_note:
     runs-on: ubuntu-latest
