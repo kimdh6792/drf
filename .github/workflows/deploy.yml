@@ -1,19 +1,23 @@
-name: Release Create
+name: Create Release
 on:
   pull_request:
     branches:
       - main
     types:
       - closed
-      
+
 jobs:
   create_release_note:
     runs-on: ubuntu-latest
     steps:
-        - name: Checkout
-          uses: actions/checkout@v3
-        - name: Create Release Note
-          if: startsWith(github.ref_name, 'main') && contains(github.head_ref, 'release')
-          uses: ./.github/actions/release-note
-          with:
-            secrets: inherit
+      - name: 버전 정보 변수에 저장
+        run: |
+          echo "version=v$(echo '${{ github.head_ref }}' | tr -d 'release-')" >> $GITHUB_OUTPUT
+        id: output_version
+      - name: 릴리즈 노트 생성
+        uses: ncipollo/release-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag: ${{ steps.output_version.outputs.version }}
+          generateReleaseNotes: true
