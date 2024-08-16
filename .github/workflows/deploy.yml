@@ -15,3 +15,5 @@ jobs:
         - name: Create Release Note
           if: startsWith(github.ref_name, 'main') && contains(github.head_ref, 'release')
           uses: ./.github/actions/release-note
+          with:
+            secrets: inherit
