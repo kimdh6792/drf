@@ -1,8 +1,5 @@
 name: Release Create
 on:
-  push:
-    branches:
-      - main
   pull_request:
     branches:
       - main
@@ -13,6 +10,8 @@ jobs:
   create_release_note:
     runs-on: ubuntu-latest
     steps:
+      - name: checkout
+        uses: actions/checkout@v3
       - name: extract version from branch name
         run: |
           # 브랜치 이름 추출
@@ -22,9 +21,7 @@ jobs:
           echo "VERSION: $VERSION" 
       - name: set output
         id: set_output
-        run: echo "version=${VERSION}" >> $GITHUB_ENV
-      - name: checkout
-        uses: actions/checkout@v3
+        run: echo "version=$VERSION" >> $GITHUB_ENV
       - name: Create Release Note
         uses: ncipollo/release-action@v1
         env:
