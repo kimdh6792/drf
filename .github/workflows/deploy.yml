@@ -15,9 +15,7 @@ jobs:
       - name: extract version from branch name
         run: |
           # 브랜치 이름 추출
-          BRANCH_NAME="v${GITHUB_REF##*/}"
-          # '-' 뒤의 버전 번호만 추출
-          VERSION=${BRANCH_NAME#*-}
+          VERSION=$(echo '${{ github.event.pull_request.title }}' | tr -d 'Release ')
           echo "VERSION: $VERSION" 
       - name: set output
         id: set_output
