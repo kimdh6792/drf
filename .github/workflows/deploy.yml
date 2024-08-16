@@ -19,7 +19,7 @@ jobs:
           echo "VERSION: $VERSION" 
       - name: set output
         run: |
-          echo "version=$VERSION" >> $GITHUB_ENV
+          echo "version='$VERSION'" >> $GITHUB_ENV
       - name: Create Release Note
         uses: ncipollo/release-action@v1
         env:
