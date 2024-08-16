@@ -9,8 +9,6 @@ jobs:
   create_release_note:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
-        uses: actions/checkout@v3
       - name: 버전 정보 변수에 저장
         run: |
           echo "version=v$(echo '${{ github.head_ref }}' | tr -d 'release-')" >> $GITHUB_OUTPUT
