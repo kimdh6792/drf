@@ -1,14 +1,35 @@
-name: Release Drafter
+name: Release Create
 on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
+    types:
+      - closed
+      
 jobs:
-  update_release_draft:
+  create_release_note:
     runs-on: ubuntu-latest
     steps:
-      - uses: release-drafter/release-drafter@v5
-        with:
-          config-name: release-drafter-config.yml
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: extract version from branch name
+        run: |
+          # 브랜치 이름 추출
+          BRANCH_NAME="v${GITHUB_REF##*/}"
+          # '-' 뒤의 버전 번호만 추출
+          VERSION=${BRANCH_NAME#*-}
+          echo "VERSION: $VERSION"
+      - name: set output
+        id: set_output
+        run: echo "version=${VERSION}" >> $GITHUB_ENV
+
+      - name: Create Release Note
+      - uses: ncipollo/release-action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag: ${{ env.version }}
+          generateReleaseNotes: true
