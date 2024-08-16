@@ -27,7 +27,7 @@ jobs:
         run: echo "version=${VERSION}" >> $GITHUB_ENV
 
       - name: Create Release Note
-      - uses: ncipollo/release-action@v1
+        uses: ncipollo/release-action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
