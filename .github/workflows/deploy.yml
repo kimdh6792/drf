@@ -13,7 +13,7 @@ jobs:
       - name: 버전 정보 변수에 저장 (릴리즈)
         if: ${{ startsWith(github.head_ref, 'release') }}
         run: |
-          version=v$(echo '${{ github.head_ref }}' | cut -d '-' -f2)
+          echo "version=v$(echo '${{ github.head_ref }}' | cut -d '-' -f2)" >> $GITHUB_ENV
       - name: 버전 정보 변수에 저장 (핫픽스)
         if: ${{ startsWith(github.head_ref, 'HOTFIX') }}
         run: |
@@ -22,15 +22,11 @@ jobs:
           patch=${version:(-1):1}
           patch=`expr $patch + 1`
           version=$major_minor$patch
-          echo $version >> $GITHUB_ENV
-      - name: set output
-        run: |
-          echo $version >> $GITHUB_OUTPUT
-        id: output_version
+          echo "version=$version" >> $GITHUB_ENV
       - name: 릴리즈 노트 생성
         uses: ncipollo/release-action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag: ${{ steps.output_version.outputs.version }}
+          tag: ${{ env.version }}
           generateReleaseNotes: true
