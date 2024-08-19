@@ -18,14 +18,13 @@ jobs:
         if: ${{ startsWith(github.head_ref, 'HOTFIX') }}
         run: |
           version=v$(echo '${{ github.head_ref }}' | cut -d '-' -f2)
-          major_minor=v${version:0:-1}
+          major_minor=${version:0:-1}
           patch=${version:(-1):1}
           patch=`expr $patch + 1`
           version=$major_minor$patch
-          echo $version
+          echo $version >> $GITHUB_ENV
       - name: set output
         run: |
-          echo $version
           echo $version >> $GITHUB_OUTPUT
         id: output_version
       - name: 릴리즈 노트 생성
