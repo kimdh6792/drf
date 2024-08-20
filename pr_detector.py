@@ -20,7 +20,7 @@ if res.status_code == 200:
         ts = slack_res.json()["ts"]
         for i in res.json():
             pr_url = i["html_url"]
-            pr_title = i["pr_title"]
+            pr_title = i["title"]
             data = {
                 "channel": channel_id,
                 "thread_ts": ts,
