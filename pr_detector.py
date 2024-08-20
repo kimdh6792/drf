@@ -40,7 +40,7 @@ if res.status_code == 200:
                     }
                 ]
             }
-            request.post(url=slack_url, json=data, headers=slack_headers)
+            requests.post(url=slack_url, json=data, headers=slack_headers)
             
 
 
