@@ -16,7 +16,7 @@ if res.status_code == 200:
         }
         slack_url = "https://slack.com/api/chat.postMessage"
         slack_headers = {"Authorization": f"Bearer {slack_token}"}
-        slack_res = requests.post(url=slack_url, json={}, headers=slack_headers)
+        slack_res = requests.post(url=slack_url, json=data, headers=slack_headers)
         ts = slack_res.json()["ts"]
         for i in res.json():
             pr_url = i["html_url"]
