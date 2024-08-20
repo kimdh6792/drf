@@ -6,7 +6,7 @@ on:
     types:
       - closed
   schedule:
-    - cron: '0 5 30 * 1-5'
+    - cron: '0 5 40 * 1-5'
 
 jobs:
   cron:
@@ -33,5 +33,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
           SLACK_CHANNEL_ID: ${{ secrets.SLACK_CHANNEL_ID }}
-        run:
+        run: |
           python pr_detector.py
