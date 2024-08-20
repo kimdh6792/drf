@@ -22,7 +22,7 @@ if res.status_code == 200:
             pr_url = i["html_url"]
             pr_title = i["pr_title"]
             data = {
-                "channel": channel_id",
+                "channel": channel_id,
                 "thread_ts": ts,
                 "attachments": [
                                     {
