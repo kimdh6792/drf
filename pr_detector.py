@@ -6,7 +6,7 @@ github_token = os.getenv("GITHUB_TOKEN")
 slack_token = os.getenv("SLACK_TOKEN")
 channel_id = os.getenv("SLACK_CHANNEL_ID")
 
-res = request.get(github_api_url + "?state=open", headers={"Authorization": f"Bearer {github_token}"})
+res = requests.get(github_api_url + "?state=open", headers={"Authorization": f"Bearer {github_token}"})
 
 if res.status_code == 200:
     if res.json():
