@@ -1,8 +1,8 @@
 name: Create Release
 on:
   pull_request:
-    branches:
-      - main
+#    branches:
+#      - main
     types:
       - closed
     tags:
