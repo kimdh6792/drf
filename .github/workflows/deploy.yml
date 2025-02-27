@@ -5,6 +5,8 @@ on:
       - main
     types:
       - closed
+    tags:
+      - '*.*'
 
 jobs:
   create_release_note:
