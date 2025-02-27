@@ -15,7 +15,7 @@ jobs:
         run: |
           echo "version=v$(echo '${{ github.head_ref }}' | cut -d '-' -f2)" >> $GITHUB_ENV
       - name: 태그 정보 확인
-        runs: |
+        run: |
           if [[ "$GITHUB_REF" == refs/tags/* ]]; then
             echo "version=v$(echo '$GITHUB_REF' | sed 's|refs/tags/||')" >> $GITHUB_ENV
       - name: 버전 정보 변수에 저장 (핫픽스)
