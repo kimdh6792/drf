@@ -39,3 +39,4 @@ jobs:
         with:
           tag: ${{ env.version }}
           generateReleaseNotes: true
+
